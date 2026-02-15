@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compte à rebours Jane & Davy</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@700&display=swap');
+
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f7f4ed; /* Couleur assortie au fond */
+            overflow: hidden;
+        }
+
+
+        .card {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+        }
+
+
+        .img-fond {
+            width: 100%;
+            display: block;
+            border-radius: 25px;
+        }
+
+
+        #jours-container {
+            position: absolute;
+            /* Ces coordonnées placent le chiffre exactement dans le rectangle */
+            bottom: 8.2%; 
+            left: 42%;
+            transform: translateX(-50%);
+            
+            font-family: 'Courier Prime', monospace; /* Style "digital" ou machine à écrire */
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            letter-spacing: 1px;
+        }
+
+
+        /* Responsive pour petits écrans */
+        @media (max-width: 400px) {
+            #jours-container { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="card">
+    <img src="fond.png" alt="Jane et Davy" class="img-fond">
+    <div id="jours-container">
+        <span id="nb-jours">0000</span>
+    </div>
+</div>
+
+
+<script>
+    function calculerJours() {
+        const dateCible = new Date('2027-08-10T00:00:00');
+        const maintenant = new Date();
+        
+        const differenceMs = dateCible - maintenant;
+        
+        // Conversion en jours
+        const joursRestants = Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
+        
+        // Affichage avec 4 chiffres (ex: 0541)
+        const element = document.getElementById('nb-jours');
+        if (joursRestants > 0) {
+            element.innerText = joursRestants.toString().padStart(4, '0');
+        } else {
+            element.innerText = "0000";
+        }
+    }
+
+
+    // Mise à jour au chargement et toutes les heures
+    calculerJours();
+    setInterval(calculerJours, 3600000);
+</script>
+
+
+</body>
+</html>
